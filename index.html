@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Cadastro de Tarefas com Vue.js</title>
+</head>
+<body>
+    <div id="tarefasApp">
+        <h1> Controle de tarefas </h1>
+        <h2>Adicionar tarefas</h2>
+        <form v-on:submit="addTarefa">
+            <input type="text" v-model="novaTarefa.titulo" placeholder="titulo da tarefa">
+            <input type="submit" value="adicionar">
+        </form>
+        <hr>
+        <h2>Tarefas a fazer</h2>
+        <table>
+            <thead>
+                <th>Pronta?</th>
+                <th>Titulo</th>
+                <th>remover</th>
+            </thead>
+            <tbody>
+                <tr v-for="tarefa in tarefas">
+                    <td><input type="checkbox"></input></td>
+                    <td>{{tarefa.titulo}}</td>
+                    <td><button v-on:click="removerTarefa(tarefa)">delete</button></td>
+                </tr>
+            </tbody>   
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var tarefasApp = new Vue({
+            el: "#tarefasApp",
+            data:{
+                tarefas:[
+                    {titulo:'desenvolver API para o sistema', pronta:false},
+                    {titulo: 'criar controle de acesso', pronta:false},
+                    {titulo: 'enviar novas mudanças para o servidor', pronta:false},
+                ],
+            novaTarefa:{
+                titulo:'',
+                pronta: false
+            }
+        },
+
+        methods:{
+            addTarefa: function(e){
+                e.preventDefault();
+                this.tarefas.push(this.novaTarefa);
+            },
+            removerTarefa:function(tarefa){
+                this.tarefas.splice(this.tarefas.indexOf(tarefa),1)
+
+            }
+        }
+
+        
+
+        
+        });
+        
+    </script>
+
+
+    
+</body>
+</html>
